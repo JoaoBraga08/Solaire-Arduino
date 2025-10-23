@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento Solaire</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            min-width: 300px;
+        }
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 12px 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: space-between;
+        }
+        span {
+            font-weight: bold;
+            color: #e8491d;
+            background-color: #f0f2f5;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-width: 70px;
+            text-align: right;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Monitoramento Solaire</h1>
+    <p>⚡ Tensão: <span id="voltage">--</span></p>
+    <p>🔋 Corrente: <span id="current">--</span></p>
+    <p>💡 Potência: <span id="power">--</span></p>
+    <p>⚙️ Ângulo do Servo: <span id="servoAngle">--</span></p>
+</div>
+
+<script>
+    async function atualizarDados() {
+        try {
+            const res = await fetch('http://10.92.199.29:3000/data');
+            
+            if (!res.ok) {
+                throw new Error(`Erro na rede: ${res.statusText}`);
+            }
+
+            const data = await res.json();
+
+            // Atualiza os elementos HTML com os novos dados do projeto Solaire
+            document.getElementById('voltage').textContent = data.voltage ? data.voltage.toFixed(2) + ' V' : '--';
+            document.getElementById('current').textContent = data.current ? data.current.toFixed(2) + ' A' : '--';
+            document.getElementById('power').textContent = data.power ? data.power.toFixed(2) + ' W' : '--';
+            document.getElementById('servoAngle').textContent = data.servoAngle ? data.servoAngle + ' °' : '--';
+
+        } catch (err) {
+            console.error('Erro ao buscar dados:', err);
+            // Limpa os campos em caso de erro
+            document.getElementById('voltage').textContent = '--';
+            document.getElementById('current').textContent = '--';
+            document.getElementById('power').textContent = '--';
+            document.getElementById('servoAngle').textContent = '--';
+        }
+    }
+
+    // Chama a função 'atualizarDados' a cada 2 segundos
+    setInterval(atualizarDados, 2000);
+
+    // Chama a função uma vez no início para carregar os dados imediatamente
+    atualizarDados();
+</script>
+</body>
+</html>
