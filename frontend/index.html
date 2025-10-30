@@ -60,7 +60,7 @@
 <script>
     async function atualizarDados() {
         try {
-            const res = await fetch('http://10.92.199.29:3000/data');
+            const res = await fetch('http://10.92.199.62:3000/api/dados');
             
             if (!res.ok) {
                 throw new Error(`Erro na rede: ${res.statusText}`);

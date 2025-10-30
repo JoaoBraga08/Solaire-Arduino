@@ -19,12 +19,12 @@ const float SENSOR_OFFSET = 2.5; // Tensão de offset do sensor (geralmente VCC/
 
 // --- DADOS DA REDE E SERVIDOR ---
 // Altere com os dados da sua rede
-const char* ssid = "Ana_julia"; // Nome da sua rede Wi-Fi
+const char* ssid = "SALA"; // Nome da sua rede Wi-Fi
 const char* password = "123456789";   // Senha da sua rede Wi-Fi
 
 // URL do seu servidor back-end. 
 // IMPORTANTE: Use o IP do computador onde o 'server.js' está rodando.  
-const char* serverName = "http://10.92.199.29:3000/data";
+const char* serverName = "http://10.92.199.62:3001/api/dados";
 
 // Inicializa o objeto do servo motor
 Servo solarServo;
