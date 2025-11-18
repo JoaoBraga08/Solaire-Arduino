@@ -24,7 +24,7 @@ const char* password = "123456789";   // Senha da sua rede Wi-Fi
 
 // URL do seu servidor back-end. 
 // IMPORTANTE: Use o IP do computador onde o 'server.js' está rodando.  
-const char* serverName = "http://10.92.199.62:3001/api/dados";
+const char* serverName = "http://10.92.199.52:3001/api/dados";
 
 // Inicializa o objeto do servo motor
 Servo solarServo;
@@ -83,11 +83,10 @@ void loop() {
     http.addHeader("Content-Type", "application/json");
 
     // Monta a string JSON com os novos dados
-    String payload = "{\"voltage\":" + String(voltage) +
-                     ",\"current\":" + String(current) +
-                     ",\"power\":" + String(power) +
-                     ",\"light\":" + String(lightValue) +
-                     ",\"servoAngle\":" + String(servoAngle) + "}";
+      String payload = "{\"voltage\":" + String(voltage) +
+                      ",\"current\":" + String(current) +
+                      ",\"power\":" + String(power) +
+                      ",\"temperature\":" + String(temperatura) + "}";
 
     int httpResponseCode = http.POST(payload);
 
